@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Workshop 5 - Opdracht</title>
+
+    <!-- Load our stylesheet -->
+    <link href="assets/css/demo.css" rel="stylesheet" />
+
+    <!-- Load jQuery 3.4.1 -->
+    <script src="assets/vendors/jquery/jquery-3.4.1.min.js"></script>
+
+    <!-- Start our application! -->
+<!--    <script src="assets/js/opdracht_uitwerking.js"></script>-->
+</head>
+<body>
+
+<div class="box">
+    <h1>Chatbot</h1>
+
+    <div class="mb-3">
+        <input id="totalWords" type="text" placeholder="How many words do you want me to say?" />
+        <button id="sendingButton" class="btn">Send</button>
+    </div>
+</div>
+
+<div id="messageResult"></div>
+    <ul id="list"></ul>
+</body>
+<script>
+    $("#sendingButton").on("click", function() {
+        let total = $("#totalWords").val();
+        $.get("https://api.noopschallenge.com/wordbot?count=" + total)
+        .done(function(data) {
+            for (let i = 0; i < total; i++) {
+                $('#list').append("<li>" + data.words[i] + "</li>");
+            }
+        }).fail(function() {
+            $('#messageResult').append("<h1 style='color: red; border: 100px solid green; background-color: yellow; text-align: center;'>hij doet het niet</h1>");
+        })
+    });
+</script>
+</html>
